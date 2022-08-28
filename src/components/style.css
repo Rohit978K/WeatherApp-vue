@@ -1,0 +1,31 @@
+.logo {
+  margin-top: 20px;
+  max-height: 150px;
+}
+.bg {
+  background-color: aquamarine;
+}
+.left-sidebar {
+  float: left;
+  max-width: 30%;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 0;
+  background-image: linear-gradient(
+    109.6deg,
+    rgba(61, 245, 167, 1) 11.2%,
+    rgba(9, 111, 224, 1) 91.1%
+  );
+}
+.currentWeather {
+    border: 2px blueviolet solid;
+    border-radius: 5px;
+    background-color: aliceblue;
+}
