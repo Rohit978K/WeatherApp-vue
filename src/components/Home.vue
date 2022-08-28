@@ -16,7 +16,7 @@
           >
             <b-row>
               <b-col md="2">
-                <p>{{ msg }}</p></b-col
+                <p>{{ message }}</p></b-col
               >
               <b-col md="6">
                 <b-form-select
@@ -78,8 +78,8 @@
 <script>
 import CurrentWeather from "./CurrentWeather.vue";
 import NavBar from "./NavBar.vue";
-
-const WEATHER_KEY = "10cfd043bf34a5372e5c9b7cbb00a715";
+import STRINGS from "../utility/string.utility";
+import URL_UTILITY from "../utility/url.utility";
 export default {
   name: "Home",
   components: {
@@ -88,8 +88,7 @@ export default {
   },
   data() {
     return {
-      WEATHER_API_URL: `http://api.weatherstack.com/current?access_key=${WEATHER_KEY}&query=`,
-      msg: "Choose a city",
+      message: STRINGS.message,
       imgUrl: "",
       weatherInfo: {
         current: {
@@ -102,22 +101,7 @@ export default {
         }
       },
       selected: null,
-      options: [
-        { value: null, text: "--Select--" },
-        { value: "new delhi", text: "New Delhi      📌" },
-        { value: "tokyo", text: "Tokyo      📌" },
-        { value: "paris", text: "Paris      📌" },
-        { value: "new york", text: "New York      📌" },
-        { value: "london", text: "London      📌" },
-        { value: "bangkok", text: "Bangkok      📌" },
-        { value: "honk kong", text: "Hong Kong      📌" },
-        { value: "dubai", text: "Dubai      📌" },
-        { value: "rome", text: "Rome      📌" },
-        { value: "macau", text: "Macau      📌" },
-        { value: "istanbul", text: "Istanbul      📌" },
-        { value: "moscow", text: "Moscow      📌" },
-        { value: "mexico city", text: "Mexico City      📌" },
-      ],
+      options: STRINGS.cityList,
       items: [],
       fields: [
         "temperature",
@@ -132,7 +116,7 @@ export default {
     };
   },
   methods: {
-    async fetchCityBasedWeatherData() {
+    async fetchCityBasedWeatherData() { // to get city based
       if(!this.selected) {
         this.weatherInfo = {
         current: {
@@ -148,7 +132,7 @@ export default {
       this.items = [];
         return;
       }
-      const url = `${this.WEATHER_API_URL}${this.selected}`;
+      const url = `${URL_UTILITY.getWeatherByCityNameUrl}?access_key=${STRINGS.WEATHER_KEY}&query=${this.selected}`;
       const response = await fetch(url);
       const data = response.json();
       data.then((key) => {

@@ -47,12 +47,12 @@
   </div>
 </template>
 <script>
-const WEATHER_KEY = "10cfd043bf34a5372e5c9b7cbb00a715";
-const API_URL = `http://api.weatherstack.com/current?access_key=${WEATHER_KEY}&query=gurgaon`;
+import STRINGS from '../utility/string.utility';
+import URL_UTILITY from '../utility/url.utility';
 export default {
   data() {
     return {
-      city: "Gurgaon",
+      city: STRINGS.defaultCity,
       imgUrl: "",
       weatherInfo: {
         current: {
@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     async fetchCurrentWeatherData() {
-      const url = `${API_URL}`;
+      const url = `${URL_UTILITY.getWeatherByCityNameUrl}?access_key=${STRINGS.WEATHER_KEY}&query=${this.city}`;
       const response = await fetch(url);
       const data = response.json();
       data.then((key) => {
